@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartEmotion AI Sentiment Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>SmartEmotion: Sentiment Analyzer</h1>
+
+        <form method="post">
+            <textarea name="text" placeholder="Enter your text here..." required></textarea>
+            <button type="submit">Analyze</button>
+        </form>
+
+        {% if result_watson or result_openai %}
+        <div class="results">
+            <h2>Results</h2>
+
+            {% if result_watson %}
+            <div class="result-block">
+                <h3>Watson NLP</h3>
+                {% for emotion, value in result_watson.items() %}
+                    <p><strong>{{ emotion.capitalize() }}:</strong> {{ value }}%</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if result_openai %}
+            <div class="result-block">
+                <h3>OpenAI</h3>
+                <p><strong>Sentiment:</strong> {{ result_openai.label }}</p>
+                <p><strong>Score:</strong> {{ result_openai.score }}</p>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

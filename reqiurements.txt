@@ -1,0 +1,3 @@
+flask
+ibm-watson
+python-dotenv
